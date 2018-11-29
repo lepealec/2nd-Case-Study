@@ -64,29 +64,4 @@ temp=as.data.frame(temp)
 colnames(temp)=c(ID,"Attrition","Count")
 temp %>% ggplot(aes(fill=Attrition,y=Count,x=eval(as.symbol(ID))))+geom_bar(stat="identity")+xlab(ID)
 ```
-Here we can see that attrition is greatest between 29 and 35.
-``` {r AttritionProportionByAge}
-temp=merge(temp,as.data.table(temp)[,sum(Count),ID])
-colnames(temp)[ncol(temp)]="Total"
-temp[["Proportion"]]=temp[["Count"]]/temp[["Total"]]
-ggplot(temp,aes(fill=Attrition,y=Proportion,x=eval(as.symbol(ID))))+geom_bar(stat="identity")+xlab(ID)+ggtitle(paste(ID,"vs Attrition"))
-```
-Here we see that attrition is greater at earlier ages, with a noticeable peak at age 58.
-``` {r age58}
-temp[temp[["Age"]]==58,]
-```
-### How does business travel relate to attrition?
-``` {r AttritionCountByBusinessTravel}
-ID="BusinessTravel"
-yes=casedata[,sum(Attrition=="Yes"),ID]; colnames(yes)[2]="Yes"
-no=casedata[,sum(Attrition=="No"),ID];   colnames(no)[2]="No"
-temp=merge(yes,no,all=T)
-temp=melt(temp,id=ID)
-temp=as.data.frame(temp)
-colnames(temp)=c(ID,"Attrition","Count")
-temp=merge(temp,as.data.table(temp)[,sum(Count),ID])
-colnames(temp)[ncol(temp)]="Total"
-temp[["Proportion"]]=temp[["Count"]]/temp[["Total"]]
-ggplot(temp,aes(fill=Attrition,y=Proportion,x=eval(as.symbol(ID))))+geom_bar(stat="identity")+xlab(ID)+ggtitle(paste(ID,"vs Attrition"))
-```
 
