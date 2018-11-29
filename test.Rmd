@@ -50,11 +50,11 @@ for (cn in cns){
 ```
 Deleted: *Standard Hours*, *Over18*, and *EmplyoeeCount* where there is only one value.
 ``` {r AttritionCount}
-barplot(table(casedata[["Attrition"]]), main="Attrition Count",col=c("Green","Red"))
+#barplot(table(casedata[["Attrition"]]), main="Attrition Count",col=c("Green","Red"))
 table(casedata[["Attrition"]])/nrow(casedata)
 ```
 ### How does age relate to attrition?
-``` {r AttritionCountByAge,echo=T}
+``` {r AttritionCountByAge,echo=F}
 ID="Age"
 yes=casedata[,sum(Attrition=="Yes"),ID]; colnames(yes)[2]="Yes"
 no=casedata[,sum(Attrition=="No"),ID];   colnames(no)[2]="No"
